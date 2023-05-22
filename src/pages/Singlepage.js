@@ -1,17 +1,22 @@
+
+
 import { useEffect, useContext } from "react";
-import { withRouter } from 'react-router-dom';
 
 // Context
-import showContext from "../context/shows/showContext";
+import ShowsContext from "../context/shows/showContext";
 
 // Components
+import { useParams } from 'react-router-dom';
 
+//import Loader from "../components/Loader";
 
 const Singlepage = ({ match }) => {
-  const { getSingleShow, singleShow, loading } = useContext(showContext);
-
+  const { getSingleShow, singleShow, loading } = useContext(ShowsContext);
+  const { id } = useParams();
+  
   useEffect(() => {
-    getSingleShow(match.params.id);
+    
+    getSingleShow((id));
 
     // eslint-disable-next-line
   }, []);
@@ -28,17 +33,18 @@ const Singlepage = ({ match }) => {
   return (
     <>
       {loading ? (
-        <h2>loading</h2>
+        //<Loader />
+        <h2>Loading</h2>
       ) : (
         <div className="singleshow">
           <img
             src={
               singleShow.image
-                ? singleShow.image.medium
-                : "no image"
+              ? singleShow.image.medium
+                : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
             }
             alt={singleShow.name}
-          ></img>
+          />
           <div className="singleshow__info">
             <h1>{singleShow.name}</h1>
             {singleShow.genres &&
@@ -73,7 +79,7 @@ const Singlepage = ({ match }) => {
         </div>
       )}
     </>
-  );
+ );
 };
 
-export  default Singlepage;
+export default Singlepage;

@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const showContext=createContext();
+const ShowsContext=createContext();
 
-export default showContext;
+export default ShowsContext;
